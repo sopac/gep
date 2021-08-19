@@ -1,0 +1,66 @@
+{
+  "name": "Donor",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "donorCategory",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sector",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "keyContact",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "project",
+      "otherEntityRelationshipName": "donor",
+      "relationshipName": "project"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "proposal",
+      "otherEntityRelationshipName": "donor",
+      "relationshipName": "proposal"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "donor",
+      "relationshipName": "country",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "donor",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210518013356"
+}

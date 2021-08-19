@@ -1,0 +1,115 @@
+{
+  "name": "Contact",
+  "fields": [
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "category",
+      "fieldType": "Category",
+      "fieldValues": "CROP,DevelopmentPartner,Government,National_NGO,Regional_NGO,Private_Retailer_Supplier,Private_Contractor,National_Consultant,Regional_Consultant"
+    },
+    {
+      "fieldName": "photo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "staff",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "designation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "division",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "field",
+      "fieldType": "Field",
+      "fieldValues": "Energy,Georesources,Climate_Change,Foreign,Affairs,Environment"
+    },
+    {
+      "fieldName": "sector",
+      "fieldType": "Sector",
+      "fieldValues": "Power_Utility,Petroleum,RE,EE,Minerals,GIS,Agriculture,Education,Water,Infrastructure,Policy,Gender,Climate,Change"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "linkedin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "twitter",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "facebook",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "skype",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "membershipAffiliation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "project",
+      "otherEntityRelationshipName": "focalContact",
+      "relationshipName": "project"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "organisation",
+      "otherEntityRelationshipName": "contact",
+      "relationshipName": "organisation",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "contact",
+      "relationshipName": "country",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "contact",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210518013357"
+}

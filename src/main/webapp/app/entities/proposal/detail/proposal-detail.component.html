@@ -1,0 +1,102 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="proposal">
+      <h2 data-cy="proposalDetailsHeading"><span>Proposal</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ proposal.id }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ proposal.title }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ proposal.description }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ proposal.status }}</span>
+        </dd>
+        <dt><span>Divsion Endorsement</span></dt>
+        <dd>
+          <span>{{ proposal.divsionEndorsement }}</span>
+        </dd>
+        <dt><span>Pacific Community Endorsement</span></dt>
+        <dd>
+          <span>{{ proposal.pacificCommunityEndorsement }}</span>
+        </dd>
+        <dt><span>Total Budget Currency</span></dt>
+        <dd>
+          <span>{{ proposal.totalBudgetCurrency }}</span>
+        </dd>
+        <dt><span>Total Budget</span></dt>
+        <dd>
+          <span>{{ proposal.totalBudget }}</span>
+        </dd>
+        <dt><span>Total Budget Breakdown</span></dt>
+        <dd>
+          <span>{{ proposal.totalBudgetBreakdown }}</span>
+        </dd>
+        <dt><span>Key Thematic Areas</span></dt>
+        <dd>
+          <span>{{ proposal.keyThematicAreas }}</span>
+        </dd>
+        <dt><span>Lessons Learnt Best Practices</span></dt>
+        <dd>
+          <span>{{ proposal.lessonsLearntBestPractices }}</span>
+        </dd>
+        <dt><span>Full Cost Recovery Coverage</span></dt>
+        <dd>
+          <span>{{ proposal.fullCostRecoveryCoverage }}</span>
+        </dd>
+        <dt><span>Notes</span></dt>
+        <dd>
+          <span>{{ proposal.notes }}</span>
+        </dd>
+        <dt><span>Resource</span></dt>
+        <dd>
+          <span *ngFor="let resource of proposal.resources; let last = last">
+            <a [routerLink]="['/resource', resource?.id, 'view']">{{ resource.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span>Country</span></dt>
+        <dd>
+          <span *ngFor="let country of proposal.countries; let last = last">
+            <a [routerLink]="['/country', country?.id, 'view']">{{ country.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span>Team</span></dt>
+        <dd>
+          <div *ngIf="proposal.team">
+            <a [routerLink]="['/team', proposal.team?.id, 'view']">{{ proposal.team?.name }}</a>
+          </div>
+        </dd>
+        <dt><span>Donor</span></dt>
+        <dd>
+          <div *ngIf="proposal.donor">
+            <a [routerLink]="['/donor', proposal.donor?.id, 'view']">{{ proposal.donor?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/proposal', proposal.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

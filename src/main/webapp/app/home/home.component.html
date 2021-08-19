@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-3">
+    <span>
+      <br /><br />
+      <img src="../../../content/images/logo.png" />
+    </span>
+  </div>
+
+  <div class="col-md-9">
+    <h1 class="display-4">Resource Mobilisation Toolkit</h1>
+
+    <p class="lead">Georesources and Energy Programme</p>
+
+    <div [ngSwitch]="isAuthenticated()">
+      <div class="alert alert-success" *ngSwitchCase="true">
+        <span id="home-logged-message" *ngIf="account">You are logged in as user "{{ account.login }}".</span>
+      </div>
+
+      <div *ngSwitchCase="true">
+        <hr />
+        <a routerLink="project" class="btn btn-primary">Projects</a>
+        <a routerLink="proposal" class="btn btn-success">Proposals</a>
+        <a routerLink="donor" class="btn btn-danger">Donors</a>
+        <a routerLink="contact" class="btn btn-warning">Contacts</a>
+        <a routerLink="tool" class="btn btn-info">Tools</a>
+      </div>
+
+      <!--     
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span>If you want to </span>
+        <a class="alert-link" (click)="login()">sign in</a
+        ><span
+          >, you can try the default accounts:<br />- Administrator (login="admin" and password="admin") <br />- User (login="user" and
+          password="user").</span
+        >
+      </div>
+      -->
+
+      <div class="alert alert-success" *ngSwitchCase="false" style="width: 120px">
+        <a class="alert-link" (click)="login()">Login</a>
+      </div>
+
+      <!--
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span>You don't have an account yet?</span>&nbsp;
+        <a class="alert-link" routerLink="account/register">Register a new account</a>
+      </div>
+    --></div>
+  </div>
+</div>

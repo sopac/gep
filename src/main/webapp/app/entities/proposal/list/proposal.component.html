@@ -1,0 +1,126 @@
+<div>
+  <h2 id="page-heading" data-cy="ProposalHeading">
+    <span>Proposals</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-proposal"
+        [routerLink]="['/proposal/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Proposal </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="proposals?.length === 0">
+    <span>No proposals found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="proposals && proposals.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Title</span></th>
+          <th scope="col"><span>Description</span></th>
+          <th scope="col"><span>Status</span></th>
+          <th scope="col"><span>Divsion Endorsement</span></th>
+          <th scope="col"><span>Pacific Community Endorsement</span></th>
+          <th scope="col"><span>Total Budget Currency</span></th>
+          <th scope="col"><span>Total Budget</span></th>
+          <th scope="col"><span>Total Budget Breakdown</span></th>
+          <th scope="col"><span>Key Thematic Areas</span></th>
+          <th scope="col"><span>Lessons Learnt Best Practices</span></th>
+          <th scope="col"><span>Full Cost Recovery Coverage</span></th>
+          <th scope="col"><span>Notes</span></th>
+          <th scope="col"><span>Resource</span></th>
+          <th scope="col"><span>Country</span></th>
+          <th scope="col"><span>Team</span></th>
+          <th scope="col"><span>Donor</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proposal of proposals; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/proposal', proposal.id, 'view']">{{ proposal.id }}</a>
+          </td>
+          <td>{{ proposal.title }}</td>
+          <td>{{ proposal.description }}</td>
+          <td>{{ proposal.status }}</td>
+          <td>{{ proposal.divsionEndorsement }}</td>
+          <td>{{ proposal.pacificCommunityEndorsement }}</td>
+          <td>{{ proposal.totalBudgetCurrency }}</td>
+          <td>{{ proposal.totalBudget }}</td>
+          <td>{{ proposal.totalBudgetBreakdown }}</td>
+          <td>{{ proposal.keyThematicAreas }}</td>
+          <td>{{ proposal.lessonsLearntBestPractices }}</td>
+          <td>{{ proposal.fullCostRecoveryCoverage }}</td>
+          <td>{{ proposal.notes }}</td>
+          <td>
+            <span *ngFor="let resource of proposal.resources; let last = last">
+              <a class="form-control-static" [routerLink]="['/resource', resource.id, 'view']">{{ resource.name }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let country of proposal.countries; let last = last">
+              <a class="form-control-static" [routerLink]="['/country', country.id, 'view']">{{ country.name }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <div *ngIf="proposal.team">
+              <a [routerLink]="['/team', proposal.team?.id, 'view']">{{ proposal.team?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="proposal.donor">
+              <a [routerLink]="['/donor', proposal.donor?.id, 'view']">{{ proposal.donor?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/proposal', proposal.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/proposal', proposal.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(proposal)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

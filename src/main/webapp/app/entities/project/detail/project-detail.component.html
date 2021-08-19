@@ -1,0 +1,100 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="project">
+      <h2 data-cy="projectDetailsHeading"><span>Project</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ project.id }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ project.title }}</span>
+        </dd>
+        <dt><span>Start Date</span></dt>
+        <dd>
+          <span>{{ project.startDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>End Date</span></dt>
+        <dd>
+          <span>{{ project.endDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ project.status }}</span>
+        </dd>
+        <dt><span>Total Budget Currency</span></dt>
+        <dd>
+          <span>{{ project.totalBudgetCurrency }}</span>
+        </dd>
+        <dt><span>Total Budget</span></dt>
+        <dd>
+          <span>{{ project.totalBudget }}</span>
+        </dd>
+        <dt><span>Total Budget Breakdown</span></dt>
+        <dd>
+          <span>{{ project.totalBudgetBreakdown }}</span>
+        </dd>
+        <dt><span>Sustainable Development Goal</span></dt>
+        <dd>
+          <span>{{ project.sustainableDevelopmentGoal }}</span>
+        </dd>
+        <dt><span>Framework Resilient Development Pacific</span></dt>
+        <dd>
+          <span>{{ project.frameworkResilientDevelopmentPacific }}</span>
+        </dd>
+        <dt><span>Full Cost Recovery Coverage</span></dt>
+        <dd>
+          <span>{{ project.fullCostRecoveryCoverage }}</span>
+        </dd>
+        <dt><span>Resource</span></dt>
+        <dd>
+          <span *ngFor="let resource of project.resources; let last = last">
+            <a [routerLink]="['/resource', resource?.id, 'view']">{{ resource.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span>Country</span></dt>
+        <dd>
+          <span *ngFor="let country of project.countries; let last = last">
+            <a [routerLink]="['/country', country?.id, 'view']">{{ country.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span>Team</span></dt>
+        <dd>
+          <div *ngIf="project.team">
+            <a [routerLink]="['/team', project.team?.id, 'view']">{{ project.team?.name }}</a>
+          </div>
+        </dd>
+        <dt><span>Donor</span></dt>
+        <dd>
+          <div *ngIf="project.donor">
+            <a [routerLink]="['/donor', project.donor?.id, 'view']">{{ project.donor?.name }}</a>
+          </div>
+        </dd>
+        <dt><span>Focal Contact</span></dt>
+        <dd>
+          <div *ngIf="project.focalContact">
+            <a [routerLink]="['/contact', project.focalContact?.id, 'view']">{{ project.focalContact?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/project', project.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

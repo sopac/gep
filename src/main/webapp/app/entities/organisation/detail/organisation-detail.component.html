@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="organisation">
+      <h2 data-cy="organisationDetailsHeading"><span>Organisation</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ organisation.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ organisation.name }}</span>
+        </dd>
+        <dt><span>Acronym</span></dt>
+        <dd>
+          <span>{{ organisation.acronym }}</span>
+        </dd>
+        <dt><span>Organisation Category</span></dt>
+        <dd>
+          <span>{{ organisation.organisationCategory }}</span>
+        </dd>
+        <dt><span>Url</span></dt>
+        <dd>
+          <span>{{ organisation.url }}</span>
+        </dd>
+        <dt><span>Country</span></dt>
+        <dd>
+          <div *ngIf="organisation.country">
+            <a [routerLink]="['/country', organisation.country?.id, 'view']">{{ organisation.country?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/organisation', organisation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

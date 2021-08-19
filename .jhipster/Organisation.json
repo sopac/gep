@@ -1,0 +1,48 @@
+{
+  "name": "Organisation",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "acronym",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "organisationCategory",
+      "fieldType": "OrganisationCategory",
+      "fieldValues": "CROP,ISSAC,PACRES,OTHER"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "contact",
+      "otherEntityRelationshipName": "organisation",
+      "relationshipName": "contact"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "organisation",
+      "relationshipName": "country",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "organisation",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210518013352"
+}

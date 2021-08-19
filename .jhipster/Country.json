@@ -1,0 +1,58 @@
+{
+  "name": "Country",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "member",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "organisation",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "organisation"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "donor",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "donor"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "contact",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "contact"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "project",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "project",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "proposal",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "proposal",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "country",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210518013351"
+}

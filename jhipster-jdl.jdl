@@ -1,0 +1,123 @@
+
+entity Country {
+    name String required,
+    member Boolean
+}
+entity Organisation {
+    name String required,
+    acronym String,
+    organisationCategory OrganisationCategory,
+    url String
+}
+enum OrganisationCategory {
+    CROP, ISSAC, PACRES, OTHER
+}
+enum Currency {
+    USD, EUR, AUD, YEN, GBP, NZD, FJD
+}
+entity Project {
+    title String required,
+    //team
+    //donor
+    //focalContact
+    startDate LocalDate,
+    endDate LocalDate,
+    status Status,
+    //resource(s)
+    totalBudgetCurrency Currency,
+    totalBudget Double,
+    totalBudgetBreakdown TextBlob,
+    //relatedCountries
+    sustainableDevelopmentGoal String,
+    frameworkResilientDevelopmentPacific String,
+    fullCostRecoveryCoverage String
+}
+entity Resource {
+name String required,
+    url String,
+    file AnyBlob, }
+
+entity Proposal {
+	title String required,
+    //donor
+    description TextBlob,
+    status Status,
+    //team
+    divsionEndorsement Boolean,
+    pacificCommunityEndorsement Boolean,
+    totalBudgetCurrency Currency,
+    totalBudget Double,
+    totalBudgetBreakdown TextBlob,
+    //resource(s)
+    //relatedCountrie(s)
+    keyThematicAreas String,    
+    lessonsLearntBestPractices TextBlob,
+    fullCostRecoveryCoverage String,
+    notes TextBlob    
+}
+
+entity Donor {
+    name String required,
+    description String,
+	url String,
+	city String,
+    donorCategory String,
+    sector String,
+	//country
+    keyContact TextBlob
+// resource(s)
+}
+enum Category {
+    CROP, DevelopmentPartner, Government, National_NGO, Regional_NGO, Private_Retailer_Supplier, Private_Contractor, National_Consultant, Regional_Consultant
+}
+enum Field {
+    Energy, Georesources, Climate_Change, Foreign Affairs, Environment 
+}
+enum Sector {
+    Power_Utility, Petroleum, RE, EE, Minerals, GIS, Agriculture, Education, Water, Infrastructure, Policy, Gender, Climate Change
+}
+entity Contact {
+    active Boolean,
+    category Category,
+    photo ImageBlob,
+	name String required,
+    staff Boolean,
+    designation String,
+    division String,
+    field Field,
+    sector Sector,
+    email String,
+    phone String,
+    city String,
+    //organisation
+    //country
+    linkedin String,
+    twitter String,
+    facebook String,
+    skype String,
+    membershipAffiliation String,
+    notes TextBlob
+}
+entity Tool {
+    title String,
+	description String,
+    url String,
+    file AnyBlob, }
+
+entity Team {
+	name String required,
+    lead String
+}
+
+enum Status {
+    ACTIVE, CLOSED, PIPELINE, COMPLETED, DROPPED, CONCEPT
+}
+//relationships
+relationship OneToMany {
+    Country to Organisation{country(name)} , Team to Project{team(name)} , Donor to Project{donor(name)} , Contact to Project{focalContact(name)} , Team to Proposal{team(name)} , Donor to Proposal{donor(name)} , Country to Donor{country(name)} , Organisation to Contact{organisation(name)} , Country to Contact{country(name)}
+}
+//manytoone resources, relatedCountries -> project
+relationship ManyToMany {
+    Project{resource(name)} to Resource{project} , Project{country(name)} to Country{project} , Proposal{resource(name)} to Resource{proposal} , Proposal{country(name)} to Country{proposal}
+// Donor{country(name)} to Country{donor},
+}

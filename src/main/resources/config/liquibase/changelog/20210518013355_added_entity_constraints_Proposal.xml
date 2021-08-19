@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Proposal.
+    -->
+    <changeSet id="20210518013355-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="proposal_id"
+                                 baseTableName="rel_proposal__resource"
+                                 constraintName="fk_rel_proposal__resource__proposal_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="proposal"/>
+
+        <addForeignKeyConstraint baseColumnNames="resource_id"
+                                 baseTableName="rel_proposal__resource"
+                                 constraintName="fk_rel_proposal__resource__resource_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="resource"/>
+
+        <addForeignKeyConstraint baseColumnNames="proposal_id"
+                                 baseTableName="rel_proposal__country"
+                                 constraintName="fk_rel_proposal__country__proposal_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="proposal"/>
+
+        <addForeignKeyConstraint baseColumnNames="country_id"
+                                 baseTableName="rel_proposal__country"
+                                 constraintName="fk_rel_proposal__country__country_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"/>
+
+        <addForeignKeyConstraint baseColumnNames="team_id"
+                                 baseTableName="proposal"
+                                 constraintName="fk_proposal__team_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team"/>
+
+        <addForeignKeyConstraint baseColumnNames="donor_id"
+                                 baseTableName="proposal"
+                                 constraintName="fk_proposal__donor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="donor"/>
+    </changeSet>
+</databaseChangeLog>

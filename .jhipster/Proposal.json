@@ -1,0 +1,102 @@
+{
+  "name": "Proposal",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,CLOSED,PIPELINE,COMPLETED,DROPPED,CONCEPT"
+    },
+    {
+      "fieldName": "divsionEndorsement",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "pacificCommunityEndorsement",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "totalBudgetCurrency",
+      "fieldType": "Currency",
+      "fieldValues": "USD,EUR,AUD,YEN,GBP,NZD,FJD"
+    },
+    {
+      "fieldName": "totalBudget",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalBudgetBreakdown",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "keyThematicAreas",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lessonsLearntBestPractices",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "fullCostRecoveryCoverage",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "resource",
+      "otherEntityRelationshipName": "proposal",
+      "relationshipName": "resource",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "proposal",
+      "relationshipName": "country",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "proposal",
+      "relationshipName": "team",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "donor",
+      "otherEntityRelationshipName": "proposal",
+      "relationshipName": "donor",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "proposal",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210518013355"
+}

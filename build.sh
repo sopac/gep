@@ -1,0 +1,2 @@
+./gradlew -Pprod clean bootJar
+

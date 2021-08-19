@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="donor">
+      <h2 data-cy="donorDetailsHeading"><span>Donor</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ donor.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ donor.name }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ donor.description }}</span>
+        </dd>
+        <dt><span>Url</span></dt>
+        <dd>
+          <span>{{ donor.url }}</span>
+        </dd>
+        <dt><span>City</span></dt>
+        <dd>
+          <span>{{ donor.city }}</span>
+        </dd>
+        <dt><span>Donor Category</span></dt>
+        <dd>
+          <span>{{ donor.donorCategory }}</span>
+        </dd>
+        <dt><span>Sector</span></dt>
+        <dd>
+          <span>{{ donor.sector }}</span>
+        </dd>
+        <dt><span>Key Contact</span></dt>
+        <dd>
+          <span>{{ donor.keyContact }}</span>
+        </dd>
+        <dt><span>Country</span></dt>
+        <dd>
+          <div *ngIf="donor.country">
+            <a [routerLink]="['/country', donor.country?.id, 'view']">{{ donor.country?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/donor', donor.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+export enum Status {
+  ACTIVE = 'ACTIVE',
+
+  CLOSED = 'CLOSED',
+
+  PIPELINE = 'PIPELINE',
+
+  COMPLETED = 'COMPLETED',
+
+  DROPPED = 'DROPPED',
+
+  CONCEPT = 'CONCEPT',
+}

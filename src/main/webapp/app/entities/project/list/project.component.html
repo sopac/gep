@@ -1,0 +1,128 @@
+<div>
+  <h2 id="page-heading" data-cy="ProjectHeading">
+    <span>Projects</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-project"
+        [routerLink]="['/project/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Project </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="projects?.length === 0">
+    <span>No projects found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="projects && projects.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Title</span></th>
+          <th scope="col"><span>Start Date</span></th>
+          <th scope="col"><span>End Date</span></th>
+          <th scope="col"><span>Status</span></th>
+          <th scope="col"><span>Total Budget Currency</span></th>
+          <th scope="col"><span>Total Budget</span></th>
+          <th scope="col"><span>Total Budget Breakdown</span></th>
+          <th scope="col"><span>Sustainable Development Goal</span></th>
+          <th scope="col"><span>Framework Resilient Development Pacific</span></th>
+          <th scope="col"><span>Full Cost Recovery Coverage</span></th>
+          <th scope="col"><span>Resource</span></th>
+          <th scope="col"><span>Country</span></th>
+          <th scope="col"><span>Team</span></th>
+          <th scope="col"><span>Donor</span></th>
+          <th scope="col"><span>Focal Contact</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projects; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/project', project.id, 'view']">{{ project.id }}</a>
+          </td>
+          <td>{{ project.title }}</td>
+          <td>{{ project.startDate | formatMediumDate }}</td>
+          <td>{{ project.endDate | formatMediumDate }}</td>
+          <td>{{ project.status }}</td>
+          <td>{{ project.totalBudgetCurrency }}</td>
+          <td>{{ project.totalBudget }}</td>
+          <td>{{ project.totalBudgetBreakdown }}</td>
+          <td>{{ project.sustainableDevelopmentGoal }}</td>
+          <td>{{ project.frameworkResilientDevelopmentPacific }}</td>
+          <td>{{ project.fullCostRecoveryCoverage }}</td>
+          <td>
+            <span *ngFor="let resource of project.resources; let last = last">
+              <a class="form-control-static" [routerLink]="['/resource', resource.id, 'view']">{{ resource.name }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let country of project.countries; let last = last">
+              <a class="form-control-static" [routerLink]="['/country', country.id, 'view']">{{ country.name }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <div *ngIf="project.team">
+              <a [routerLink]="['/team', project.team?.id, 'view']">{{ project.team?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="project.donor">
+              <a [routerLink]="['/donor', project.donor?.id, 'view']">{{ project.donor?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="project.focalContact">
+              <a [routerLink]="['/contact', project.focalContact?.id, 'view']">{{ project.focalContact?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/project', project.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/project', project.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(project)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

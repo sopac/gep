@@ -1,0 +1,38 @@
+{
+  "name": "Team",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lead",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "project",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "project"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "proposal",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "proposal"
+    }
+  ],
+  "entityTableName": "team",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210518013359"
+}

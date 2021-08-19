@@ -1,0 +1,228 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-contact-heading" data-cy="ContactCreateUpdateHeading">Create or edit a Contact</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_active">Active</label>
+          <input type="checkbox" class="form-check" name="active" id="field_active" data-cy="active" formControlName="active" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_category">Category</label>
+          <select class="form-control" name="category" formControlName="category" id="field_category" data-cy="category">
+            <option [ngValue]="null"></option>
+            <option value="CROP">CROP</option>
+            <option value="DevelopmentPartner">DevelopmentPartner</option>
+            <option value="Government">Government</option>
+            <option value="National_NGO">National_NGO</option>
+            <option value="Regional_NGO">Regional_NGO</option>
+            <option value="Private_Retailer_Supplier">Private_Retailer_Supplier</option>
+            <option value="Private_Contractor">Private_Contractor</option>
+            <option value="National_Consultant">National_Consultant</option>
+            <option value="Regional_Consultant">Regional_Consultant</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_photo">Photo</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('photoContentType')!.value + ';base64,' + editForm.get('photo')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('photo')!.value"
+              alt="contact image"
+            />
+            <div *ngIf="editForm.get('photo')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('photoContentType')!.value }}, {{ byteSize(editForm.get('photo')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('photo', 'photoContentType', 'file_photo')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_photo" data-cy="photo" (change)="setFileData($event, 'photo', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="photo" id="field_photo" data-cy="photo" formControlName="photo" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="photoContentType"
+            id="field_photoContentType"
+            formControlName="photoContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_staff">Staff</label>
+          <input type="checkbox" class="form-check" name="staff" id="field_staff" data-cy="staff" formControlName="staff" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_designation">Designation</label>
+          <input
+            type="text"
+            class="form-control"
+            name="designation"
+            id="field_designation"
+            data-cy="designation"
+            formControlName="designation"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_division">Division</label>
+          <input type="text" class="form-control" name="division" id="field_division" data-cy="division" formControlName="division" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_field">Field</label>
+          <select class="form-control" name="field" formControlName="field" id="field_field" data-cy="field">
+            <option [ngValue]="null"></option>
+            <option value="Energy">Energy</option>
+            <option value="Georesources">Georesources</option>
+            <option value="Climate_Change">Climate_Change</option>
+            <option value="Foreign">Foreign</option>
+            <option value="Affairs">Affairs</option>
+            <option value="Environment">Environment</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_sector">Sector</label>
+          <select class="form-control" name="sector" formControlName="sector" id="field_sector" data-cy="sector">
+            <option [ngValue]="null"></option>
+            <option value="Power_Utility">Power_Utility</option>
+            <option value="Petroleum">Petroleum</option>
+            <option value="RE">RE</option>
+            <option value="EE">EE</option>
+            <option value="Minerals">Minerals</option>
+            <option value="GIS">GIS</option>
+            <option value="Agriculture">Agriculture</option>
+            <option value="Education">Education</option>
+            <option value="Water">Water</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Policy">Policy</option>
+            <option value="Gender">Gender</option>
+            <option value="Climate">Climate</option>
+            <option value="Change">Change</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_phone">Phone</label>
+          <input type="text" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_city">City</label>
+          <input type="text" class="form-control" name="city" id="field_city" data-cy="city" formControlName="city" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_linkedin">Linkedin</label>
+          <input type="text" class="form-control" name="linkedin" id="field_linkedin" data-cy="linkedin" formControlName="linkedin" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_twitter">Twitter</label>
+          <input type="text" class="form-control" name="twitter" id="field_twitter" data-cy="twitter" formControlName="twitter" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_facebook">Facebook</label>
+          <input type="text" class="form-control" name="facebook" id="field_facebook" data-cy="facebook" formControlName="facebook" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_skype">Skype</label>
+          <input type="text" class="form-control" name="skype" id="field_skype" data-cy="skype" formControlName="skype" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_membershipAffiliation">Membership Affiliation</label>
+          <input
+            type="text"
+            class="form-control"
+            name="membershipAffiliation"
+            id="field_membershipAffiliation"
+            data-cy="membershipAffiliation"
+            formControlName="membershipAffiliation"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_notes">Notes</label>
+          <textarea class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_organisation">Organisation</label>
+          <select class="form-control" id="field_organisation" data-cy="organisation" name="organisation" formControlName="organisation">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                organisationOption.id === editForm.get('organisation')!.value?.id ? editForm.get('organisation')!.value : organisationOption
+              "
+              *ngFor="let organisationOption of organisationsSharedCollection; trackBy: trackOrganisationById"
+            >
+              {{ organisationOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_country">Country</label>
+          <select class="form-control" id="field_country" data-cy="country" name="country" formControlName="country">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption"
+              *ngFor="let countryOption of countriesSharedCollection; trackBy: trackCountryById"
+            >
+              {{ countryOption.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,235 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-project-heading" data-cy="ProjectCreateUpdateHeading">Create or edit a Project</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null"></option>
+            <option value="ACTIVE">ACTIVE</option>
+            <option value="CLOSED">CLOSED</option>
+            <option value="PIPELINE">PIPELINE</option>
+            <option value="COMPLETED">COMPLETED</option>
+            <option value="DROPPED">DROPPED</option>
+            <option value="CONCEPT">CONCEPT</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_totalBudgetCurrency">Total Budget Currency</label>
+          <select
+            class="form-control"
+            name="totalBudgetCurrency"
+            formControlName="totalBudgetCurrency"
+            id="field_totalBudgetCurrency"
+            data-cy="totalBudgetCurrency"
+          >
+            <option [ngValue]="null"></option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="AUD">AUD</option>
+            <option value="YEN">YEN</option>
+            <option value="GBP">GBP</option>
+            <option value="NZD">NZD</option>
+            <option value="FJD">FJD</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_totalBudget">Total Budget</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalBudget"
+            id="field_totalBudget"
+            data-cy="totalBudget"
+            formControlName="totalBudget"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_totalBudgetBreakdown">Total Budget Breakdown</label>
+          <textarea
+            class="form-control"
+            name="totalBudgetBreakdown"
+            id="field_totalBudgetBreakdown"
+            data-cy="totalBudgetBreakdown"
+            formControlName="totalBudgetBreakdown"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_sustainableDevelopmentGoal">Sustainable Development Goal</label>
+          <input
+            type="text"
+            class="form-control"
+            name="sustainableDevelopmentGoal"
+            id="field_sustainableDevelopmentGoal"
+            data-cy="sustainableDevelopmentGoal"
+            formControlName="sustainableDevelopmentGoal"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_frameworkResilientDevelopmentPacific">Framework Resilient Development Pacific</label>
+          <input
+            type="text"
+            class="form-control"
+            name="frameworkResilientDevelopmentPacific"
+            id="field_frameworkResilientDevelopmentPacific"
+            data-cy="frameworkResilientDevelopmentPacific"
+            formControlName="frameworkResilientDevelopmentPacific"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fullCostRecoveryCoverage">Full Cost Recovery Coverage</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fullCostRecoveryCoverage"
+            id="field_fullCostRecoveryCoverage"
+            data-cy="fullCostRecoveryCoverage"
+            formControlName="fullCostRecoveryCoverage"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="field_resources">Resource</label>
+          <select class="form-control" id="field_resources" data-cy="resource" multiple name="resources" formControlName="resources">
+            <option
+              [ngValue]="getSelectedResource(resourceOption, editForm.get('resources')!.value)"
+              *ngFor="let resourceOption of resourcesSharedCollection; trackBy: trackResourceById"
+            >
+              {{ resourceOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="field_countries">Country</label>
+          <select class="form-control" id="field_countries" data-cy="country" multiple name="countries" formControlName="countries">
+            <option
+              [ngValue]="getSelectedCountry(countryOption, editForm.get('countries')!.value)"
+              *ngFor="let countryOption of countriesSharedCollection; trackBy: trackCountryById"
+            >
+              {{ countryOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_team">Team</label>
+          <select class="form-control" id="field_team" data-cy="team" name="team" formControlName="team">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="teamOption.id === editForm.get('team')!.value?.id ? editForm.get('team')!.value : teamOption"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_donor">Donor</label>
+          <select class="form-control" id="field_donor" data-cy="donor" name="donor" formControlName="donor">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="donorOption.id === editForm.get('donor')!.value?.id ? editForm.get('donor')!.value : donorOption"
+              *ngFor="let donorOption of donorsSharedCollection; trackBy: trackDonorById"
+            >
+              {{ donorOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_focalContact">Focal Contact</label>
+          <select class="form-control" id="field_focalContact" data-cy="focalContact" name="focalContact" formControlName="focalContact">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="contactOption.id === editForm.get('focalContact')!.value?.id ? editForm.get('focalContact')!.value : contactOption"
+              *ngFor="let contactOption of contactsSharedCollection; trackBy: trackContactById"
+            >
+              {{ contactOption.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

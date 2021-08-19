@@ -1,0 +1,117 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="contact">
+      <h2 data-cy="contactDetailsHeading"><span>Contact</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ contact.id }}</span>
+        </dd>
+        <dt><span>Active</span></dt>
+        <dd>
+          <span>{{ contact.active }}</span>
+        </dd>
+        <dt><span>Category</span></dt>
+        <dd>
+          <span>{{ contact.category }}</span>
+        </dd>
+        <dt><span>Photo</span></dt>
+        <dd>
+          <div *ngIf="contact.photo">
+            <a (click)="openFile(contact.photo, contact.photoContentType)">
+              <img [src]="'data:' + contact.photoContentType + ';base64,' + contact.photo" style="max-width: 100%" alt="contact image" />
+            </a>
+            {{ contact.photoContentType }}, {{ byteSize(contact.photo) }}
+          </div>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ contact.name }}</span>
+        </dd>
+        <dt><span>Staff</span></dt>
+        <dd>
+          <span>{{ contact.staff }}</span>
+        </dd>
+        <dt><span>Designation</span></dt>
+        <dd>
+          <span>{{ contact.designation }}</span>
+        </dd>
+        <dt><span>Division</span></dt>
+        <dd>
+          <span>{{ contact.division }}</span>
+        </dd>
+        <dt><span>Field</span></dt>
+        <dd>
+          <span>{{ contact.field }}</span>
+        </dd>
+        <dt><span>Sector</span></dt>
+        <dd>
+          <span>{{ contact.sector }}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+          <span>{{ contact.email }}</span>
+        </dd>
+        <dt><span>Phone</span></dt>
+        <dd>
+          <span>{{ contact.phone }}</span>
+        </dd>
+        <dt><span>City</span></dt>
+        <dd>
+          <span>{{ contact.city }}</span>
+        </dd>
+        <dt><span>Linkedin</span></dt>
+        <dd>
+          <span>{{ contact.linkedin }}</span>
+        </dd>
+        <dt><span>Twitter</span></dt>
+        <dd>
+          <span>{{ contact.twitter }}</span>
+        </dd>
+        <dt><span>Facebook</span></dt>
+        <dd>
+          <span>{{ contact.facebook }}</span>
+        </dd>
+        <dt><span>Skype</span></dt>
+        <dd>
+          <span>{{ contact.skype }}</span>
+        </dd>
+        <dt><span>Membership Affiliation</span></dt>
+        <dd>
+          <span>{{ contact.membershipAffiliation }}</span>
+        </dd>
+        <dt><span>Notes</span></dt>
+        <dd>
+          <span>{{ contact.notes }}</span>
+        </dd>
+        <dt><span>Organisation</span></dt>
+        <dd>
+          <div *ngIf="contact.organisation">
+            <a [routerLink]="['/organisation', contact.organisation?.id, 'view']">{{ contact.organisation?.name }}</a>
+          </div>
+        </dd>
+        <dt><span>Country</span></dt>
+        <dd>
+          <div *ngIf="contact.country">
+            <a [routerLink]="['/country', contact.country?.id, 'view']">{{ contact.country?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/contact', contact.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+{
+  "name": "Project",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,CLOSED,PIPELINE,COMPLETED,DROPPED,CONCEPT"
+    },
+    {
+      "fieldName": "totalBudgetCurrency",
+      "fieldType": "Currency",
+      "fieldValues": "USD,EUR,AUD,YEN,GBP,NZD,FJD"
+    },
+    {
+      "fieldName": "totalBudget",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalBudgetBreakdown",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "sustainableDevelopmentGoal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "frameworkResilientDevelopmentPacific",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fullCostRecoveryCoverage",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "resource",
+      "otherEntityRelationshipName": "project",
+      "relationshipName": "resource",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "project",
+      "relationshipName": "country",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "project",
+      "relationshipName": "team",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "donor",
+      "otherEntityRelationshipName": "project",
+      "relationshipName": "donor",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "contact",
+      "otherEntityRelationshipName": "project",
+      "relationshipName": "focalContact",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "project",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210518013353"
+}

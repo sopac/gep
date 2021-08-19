@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-organisation-heading" data-cy="OrganisationCreateUpdateHeading">Create or edit a Organisation</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_acronym">Acronym</label>
+          <input type="text" class="form-control" name="acronym" id="field_acronym" data-cy="acronym" formControlName="acronym" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_organisationCategory">Organisation Category</label>
+          <select
+            class="form-control"
+            name="organisationCategory"
+            formControlName="organisationCategory"
+            id="field_organisationCategory"
+            data-cy="organisationCategory"
+          >
+            <option [ngValue]="null"></option>
+            <option value="CROP">CROP</option>
+            <option value="ISSAC">ISSAC</option>
+            <option value="PACRES">PACRES</option>
+            <option value="OTHER">OTHER</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_url">Url</label>
+          <input type="text" class="form-control" name="url" id="field_url" data-cy="url" formControlName="url" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_country">Country</label>
+          <select class="form-control" id="field_country" data-cy="country" name="country" formControlName="country">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption"
+              *ngFor="let countryOption of countriesSharedCollection; trackBy: trackCountryById"
+            >
+              {{ countryOption.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
